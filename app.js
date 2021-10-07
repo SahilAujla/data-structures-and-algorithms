@@ -1,22 +1,28 @@
-function insertionSort(arr) {
-  for (let i = 1; i < arr.length; i++) {
-    let current = arr[i];
-    for (var j = i - 1; j >= 0; j--) {
-      if (j === 0) {
-        if (arr[0] > current) {
-          arr[j + 1] = arr[j];
-          arr[0] = current;
-          break;
-        }
-      }
+function merge(arr1, arr2) {
+  let mergedArray = [];
 
-      if (arr[j] < current) {
-        arr[j + 1] = current;
-        break;
-      }
-      arr[j + 1] = arr[j];
+  let i = 0;
+  let j = 0;
+  while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] > arr2[j]) {
+      mergedArray.push(arr2[j]);
+      j++;
+    } else {
+      mergedArray.push(arr1[i]);
+      i++;
     }
   }
-  console.log(arr);
+
+  while (i < arr1.length) {
+    mergedArray.push(arr1[i]);
+    i++;
+  }
+  while (j < arr2.length) {
+    mergedArray.push(arr2[j]);
+    j++;
+  }
+
+  return mergedArray;
 }
-insertionSort([232, 343, 323434, 32232, 6]);
+
+merge([1, 3, 5, 9, 11, 13], [2, 4, 6, 8, 10]);
