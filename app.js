@@ -1,16 +1,12 @@
-function collectOddValues(arr) {
-  let newArr = [];
-
+function isOdd(arr) {
   if (arr.length === 0) {
-    return newArr;
+    console.log("All the numbers are odd");
+  } else if (arr[0] % 2 === 0) {
+    console.log(`${arr[0]} number in the list is even`);
+  } else {
+    arr.shift();
+    isOdd(arr);
   }
-
-  if (arr[0] % 2 !== 0) {
-    newArr.push(arr[0]);
-  }
-
-  newArr = newArr.concat(collectOddValues(arr.slice(1)));
-  return newArr;
 }
 
-collectOddValues([1, 2, 3, 4, 5]);
+isOdd([12345, 43433, 324347, 5434345]);
