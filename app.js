@@ -1,12 +1,16 @@
-function isOdd(arr) {
-  if (arr.length === 0) {
-    console.log("All the numbers are odd");
-  } else if (arr[0] % 2 === 0) {
-    console.log(`${arr[0]} number in the list is even`);
-  } else {
-    arr.shift();
-    isOdd(arr);
+function strSearch(str, substr) {
+  let count = 0;
+  for (let i = 0; i < str.length; i++) {
+    for (let j = 0; j < substr.length; j++) {
+      if (str[i + j] !== substr[j]) {
+        break;
+      }
+      if (j === substr.length - 1) {
+        count += 1;
+      }
+    }
   }
+  console.log(count);
 }
 
-isOdd([12345, 43433, 324347, 5434345]);
+strSearch("kksajfksaomghfsahomgkjdhaomg omg omg", "omg");
