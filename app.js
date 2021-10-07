@@ -1,16 +1,22 @@
-function insertionSort(inputArr) {
-  let n = inputArr.length;
-  for (let i = 1; i < n; i++) {
-    // Choosing the first element in our unsorted subarray
-    let current = inputArr[i];
-    // The last element of our sorted subarray
-    let j = i - 1;
-    while (j >= 0 && current < inputArr[j]) {
-      inputArr[j + 1] = inputArr[j];
-      j--;
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let current = arr[i];
+    for (var j = i - 1; j >= 0; j--) {
+      if (j === 0) {
+        if (arr[0] > current) {
+          arr[j + 1] = arr[j];
+          arr[0] = current;
+          break;
+        }
+      }
+
+      if (arr[j] < current) {
+        arr[j + 1] = current;
+        break;
+      }
+      arr[j + 1] = arr[j];
     }
-    inputArr[j + 1] = current;
   }
-  console.log(inputArr);
+  console.log(arr);
 }
 insertionSort([232, 343, 323434, 32232, 6]);
