@@ -1,17 +1,16 @@
-function bubbleSort(arr) {
-  for (let i = arr.length; i > 0; i--) {
-    let noSwaps = true;
-    for (let j = 0; j < i - 1; j++) {
-      if (arr[j + 1] < arr[j]) {
-        [arr[j + 1], arr[j]] = [arr[j], arr[j + 1]];
-        noSwaps = false;
+function selectionSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let min = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[min]) {
+        min = j;
       }
     }
-    if (noSwaps) {
-      break;
+    if (min !== i) {
+      [arr[i], arr[min]] = [arr[min], arr[i]];
     }
   }
   console.log(arr);
 }
 
-bubbleSort([232, 343, 323434, 32232, 6]);
+selectionSort([232, 343, 323434, 32232, 6]);
