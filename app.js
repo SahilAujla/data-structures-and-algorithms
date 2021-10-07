@@ -1,21 +1,22 @@
-function binarySearch(array, value) {
-  let left = 0;
-  let right = array.length - 1;
+// Design Pattern: Helper Method Recursion
 
-  let middle = Math.floor((left + right) / 2);
+function collectOddValues(arr) {
+  let result = [];
 
-  while (array[middle] != value) {
-    if (array[middle] > value) {
-      right = middle - 1;
+  function helper(helperInput) {
+    if (helperInput.length === 0) {
+      return;
     } else {
-      left = middle + 1;
+      if (helperInput[0] % 2 !== 0) {
+        result.push(helperInput[0]);
+      }
+      helper(helperInput.slice(1));
     }
-    if (left > right) {
-      return -1;
-    }
-    middle = Math.floor((left + right) / 2);
   }
-  return middle;
+
+  helper(arr);
+
+  return result;
 }
 
-console.log(binarySearch([2, 5, 6, 9, 13, 15, 28], 50));
+console.log(collectOddValues([1, 2, 3, 4, 5, 6]));
