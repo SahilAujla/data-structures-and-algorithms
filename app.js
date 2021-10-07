@@ -1,12 +1,21 @@
-// Recursion --> A function that calls itself
+function binarySearch(array, value) {
+  let left = 0;
+  let right = array.length - 1;
 
-function factorial(num) {
-  if (num === 1) {
-    return 1;
-  } else {
-    return num * factorial(num - 1);
+  let middle = Math.floor((left + right) / 2);
+
+  while (array[middle] != value) {
+    if (array[middle] > value) {
+      right = middle - 1;
+    } else {
+      left = middle + 1;
+    }
+    if (left > right) {
+      return -1;
+    }
+    middle = Math.floor((left + right) / 2);
   }
+  return middle;
 }
 
-let fact = factorial(8);
-console.log(fact);
+console.log(binarySearch([2, 5, 6, 9, 13, 15, 28], 50));
