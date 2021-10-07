@@ -1,10 +1,12 @@
+// Recursion --> A function that calls itself
+
 function factorial(num) {
-  let product = 1;
-  for (let i = num; i > 1; i--) {
-    product = product * i;
+  if (num === 1) {
+    return 1;
+  } else {
+    return num * factorial(num - 1);
   }
-  return product;
 }
 
-let fact = factorial(10);
+let fact = factorial(8);
 console.log(fact);
