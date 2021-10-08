@@ -109,25 +109,25 @@ class SinglyLinkedList {
     }
   }
 
-  // // can also write it like this
+  remove(index) {
+    if (index < 0 || index >= this.length) return null;
+    if (index === 0) {
+      return this.shift();
+    } else if (index === this.length - 1) {
+      return this.pop();
+    } else {
+      let pre = this.get(index - 1);
+      let elementToRemove = pre.next;
 
-  // insert(index, value) {
-  //   if (index < 0 || index > this.length) return false;
-  //   let newNode = new Node(value);
-  //   if (index === this.length) !!this.push(value);
-  //   if (index === 0) !!this.unshift(value);
-  //   // here we are converting the lists returned by unshift and push functions to true(to its boolean ) by using double !!
-  //   let pre = this.get(index - 1);
-  //   let post = pre.next;
-  //   pre.next = newNode;
-  //   newNode.next = post;
-  //   this.length++;
-  //   return true;
-  // }
+      pre.next = elementToRemove.next;
+      this.length--;
+      return elementToRemove;
+    }
+  }
 }
 
 let list = new SinglyLinkedList();
-list.push("Sahil");
-list.push("Aujla");
-list.push("g");
+list.push(0);
+list.push(1);
+list.push(2);
 console.log(list);
