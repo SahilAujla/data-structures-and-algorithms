@@ -45,11 +45,21 @@ class SinglyLinkedList {
     }
     return current;
   }
+
+  shift() {
+    if (this.length === 0) return undefined;
+    let currentHead = this.head;
+    this.head = this.head.next;
+    this.length--;
+    if (this.length === 0) {
+      this.tail = null;
+    }
+    return currentHead;
+  }
 }
 
 let list = new SinglyLinkedList();
 list.push("Sahil");
 list.push("Aujla");
 list.push("g");
-console.log(list.pop());
 console.log(list);
