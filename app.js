@@ -80,6 +80,15 @@ class SinglyLinkedList {
     }
     return element;
   }
+
+  set(index, value) {
+    if (!this.get(index)) {
+      return false;
+    } else {
+      this.get(index).val = value;
+      return true;
+    }
+  }
 }
 
 let list = new SinglyLinkedList();
