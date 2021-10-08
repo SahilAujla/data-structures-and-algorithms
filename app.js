@@ -1,38 +1,57 @@
-function merge(arr1, arr2) {
-  let mergedArray = [];
+// By default the javascript sort method compares the elements by the unicode characters of string, so it only works on strings properly
+// to make it work on numbers or by any other logic we need to pass a callback function where we can tell how to compare
+// if the function returns a negative number then a comes before b, if it return a positive number then a comes after b, if it returns 0 then both are equal
 
-  let i = 0;
-  let j = 0;
-  while (i < arr1.length && j < arr2.length) {
-    if (arr1[i] > arr2[j]) {
-      mergedArray.push(arr2[j]);
-      j++;
-    } else {
-      mergedArray.push(arr1[i]);
-      i++;
-    }
-  }
+let soretedByString = [
+  "Sahil",
+  "Aujla",
+  "Algorithms",
+  "Data Structures",
+].sort();
 
-  while (i < arr1.length) {
-    mergedArray.push(arr1[i]);
-    i++;
-  }
-  while (j < arr2.length) {
-    mergedArray.push(arr2[j]);
-    j++;
-  }
+console.log(soretedByString);
 
-  return mergedArray;
+// It cannot compare small letters with capital ones so the order will break in that case
+
+let comparedSmallNLarge = [
+  "sahil",
+  "Aujla",
+  "algorithms",
+  "Data Structures",
+].sort();
+
+console.log(comparedSmallNLarge);
+
+// telling it to compare by numbers
+
+function numberCompare(a, b) {
+  return a - b;
 }
 
-function mergeSort(arr) {
-  if (arr.length <= 1) {
-    return arr;
-  }
-  let middle = Math.floor(arr.length / 2);
-  return merge(mergeSort(arr.slice(0, middle)), mergeSort(arr.slice(middle)));
+let compareByNumbers = [1, 3, 21, 6546, 4334, 64543, 34].sort(numberCompare);
+
+console.log(compareByNumbers);
+
+// if we just reverse a and b (b - a) the order would be reversed
+
+function numbersCompare(a, b) {
+  return b - a;
 }
 
-mergeSort([1, 5, 87, 34, 21, 45, 2, 9, 6]);
-// the space complexity of this is o(n) but if you want merge sort with O(1) space complexity then search
-// on google for in-place mergeSort javascript
+let comparesByNumbers = [1, 3, 21, 6546, 4334, 64543, 34].sort(numbersCompare);
+
+console.log(comparesByNumbers);
+
+// Compare by length of string
+
+function compareByLen(str1, str2) {
+  return str1.length - str2.length;
+}
+
+let comparesByLen = ["sahil", "Aujla", "algorithms", "Data Structures"].sort(
+  compareByLen
+);
+
+console.log(comparesByLen);
+
+// if we just reverse (str1.length - str2.length) to (str2.length - str1.length) then the order would be reversed
