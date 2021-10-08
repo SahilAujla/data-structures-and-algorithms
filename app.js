@@ -1,3 +1,6 @@
+// this mergesort is written by me and is easy to understand as I have used one extra function that is splitHalves
+// we can just use mergeSort function and do it but it is easy to understand
+
 function merge(arr1, arr2) {
   let mergedArray = [];
 
@@ -25,4 +28,25 @@ function merge(arr1, arr2) {
   return mergedArray;
 }
 
-merge([1, 3, 5, 9, 11, 13], [2, 4, 6, 8, 10]);
+function splitHalves(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+  let middle = Math.floor(arr.length / 2);
+  return merge(
+    splitHalves(arr.slice(0, middle)),
+    splitHalves(arr.slice(middle))
+  );
+}
+
+function mergeSort(arr) {
+  console.log(splitHalves(arr));
+}
+
+mergeSort([1, 5, 87, 34, 21, 45, 2, 9, 6]);
+
+// all the sorting algorithms actually returns sorted arrays
+// but here I am printing them to see the result
+
+// the space complexity of this is o(n) but if you want merge sort with O(1) space complexity then search
+// on google for in-place mergeSort javascript
