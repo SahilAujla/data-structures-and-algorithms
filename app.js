@@ -89,6 +89,41 @@ class SinglyLinkedList {
       return true;
     }
   }
+
+  insert(index, value) {
+    if (index < 0 || index > this.length) return false;
+    let newNode = new Node(value);
+    if (index === this.length) {
+      this.push(value);
+      return true;
+    } else if (index === 0) {
+      this.unshift(value);
+      return true;
+    } else {
+      let pre = this.get(index - 1);
+      let post = pre.next;
+      pre.next = newNode;
+      newNode.next = post;
+      this.length++;
+      return true;
+    }
+  }
+
+  // // can also write it like this
+
+  // insert(index, value) {
+  //   if (index < 0 || index > this.length) return false;
+  //   let newNode = new Node(value);
+  //   if (index === this.length) !!this.push(value);
+  //   if (index === 0) !!this.unshift(value);
+  //   // here we are converting the lists returned by unshift and push functions to true(to its boolean ) by using double !!
+  //   let pre = this.get(index - 1);
+  //   let post = pre.next;
+  //   pre.next = newNode;
+  //   newNode.next = post;
+  //   this.length++;
+  //   return true;
+  // }
 }
 
 let list = new SinglyLinkedList();
