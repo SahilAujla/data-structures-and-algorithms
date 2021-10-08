@@ -1,28 +1,33 @@
-function pivot(arr, start = 0, end = arr.length - 1) {
-  let pivot = arr[start];
-  let j = start;
-  let i = start + 1;
+// Also called Bucket Sort
 
-  while (i <= end) {
-    if (arr[i] < pivot) {
-      j++;
-      [arr[j], arr[i]] = [arr[i], arr[j]];
+function getDigit(num, i) {
+  return Math.floor(Math.abs(num) / Math.pow(10, i)) % 10;
+}
+
+function digitCount(num) {
+  if (num === 0) return 1;
+  return Math.floor(Math.log10(Math.abs(num))) + 1;
+}
+
+function mostDigits(nums) {
+  let maxDigits = 0;
+  for (let i = 0; i < nums.length; i++) {
+    maxDigits = Math.max(maxDigits, digitCount(nums[i]));
+  }
+  return maxDigits;
+}
+
+function radixSort(nums) {
+  let maxDigitCount = mostDigits(nums);
+  for (let k = 0; k < maxDigitCount; k++) {
+    let digitBuckets = Array.from({ length: 10 }, () => []);
+    for (let i = 0; i < nums.length; i++) {
+      let digit = getDigit(nums[i], k);
+      digitBuckets[digit].push(nums[i]);
     }
-    i++;
+    nums = [].concat(...digitBuckets);
   }
-  [arr[start], arr[j]] = [arr[j], arr[start]];
-  return j;
+  return nums;
 }
 
-function quickSort(arr, left = 0, right = arr.length - 1) {
-  if (left < right) {
-    pivotIndex = pivot(arr, left, right);
-    // left side
-    quickSort(arr, left, pivotIndex - 1);
-    // right side
-    quickSort(arr, pivotIndex + 1, right);
-  }
-  return arr;
-}
-
-console.log(quickSort([9, 8, 7, 6, 232, 53324, 233, -1]));
+console.log(radixSort([23, 345, 5467, 12, 2345, 9852]));
