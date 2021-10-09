@@ -102,6 +102,16 @@ class DoublyLinkedList {
     }
     return element;
   }
+
+  set(index, value) {
+    let element = this.get(index);
+    if (element) {
+      element.val = value;
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 let list = new DoublyLinkedList();
