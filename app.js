@@ -9,165 +9,35 @@ class Node {
   constructor(val) {
     this.val = val;
     this.next = null;
+    this.prev = null;
   }
 }
 
-class SinglyLinkedList {
+class DoublyLinkedList {
   constructor() {
     this.length = 0;
     this.head = null;
     this.tail = null;
   }
+
   push(val) {
     let newNode = new Node(val);
-    if (!this.head) {
+    if (this.length === 0) {
       this.head = newNode;
       this.tail = newNode;
     } else {
       this.tail.next = newNode;
+      this.tail.next.prev = this.tail;
       this.tail = newNode;
     }
     this.length++;
     return this;
   }
-
-  pop() {
-    if (!this.head) return undefined;
-    let current = this.head;
-    let newTail = current;
-    while (current.next) {
-      newTail = current;
-      current = current.next;
-    }
-    this.tail = newTail;
-    this.tail.next = null;
-    this.length--;
-    if (this.length === 0) {
-      this.head = null;
-      this.tail = null;
-    }
-    return current;
-  }
-
-  shift() {
-    if (this.length === 0) return undefined;
-    let currentHead = this.head;
-    this.head = this.head.next;
-    this.length--;
-    if (this.length === 0) {
-      this.tail = null;
-    }
-    return currentHead;
-  }
-
-  unshift(val) {
-    let newNode = new Node(val);
-    if (!this.head) {
-      this.head = newNode;
-      this.tail = newNode;
-    } else {
-      newNode.next = this.head;
-      this.head = newNode;
-    }
-    this.length++;
-    return this;
-  }
-
-  get(index) {
-    if (index < 0 || index >= this.length) return null;
-    let counter = 0;
-    let element = this.head;
-    while (counter < index) {
-      element = element.next;
-      counter++;
-    }
-    return element;
-  }
-
-  set(index, value) {
-    if (!this.get(index)) {
-      return false;
-    } else {
-      this.get(index).val = value;
-      return true;
-    }
-  }
-
-  insert(index, value) {
-    if (index < 0 || index > this.length) return false;
-    let newNode = new Node(value);
-    if (index === this.length) {
-      this.push(value);
-      return true;
-    } else if (index === 0) {
-      this.unshift(value);
-      return true;
-    } else {
-      let pre = this.get(index - 1);
-      let post = pre.next;
-      pre.next = newNode;
-      newNode.next = post;
-      this.length++;
-      return true;
-    }
-  }
-
-  remove(index) {
-    if (index < 0 || index >= this.length) return null;
-    if (index === 0) {
-      return this.shift();
-    } else if (index === this.length - 1) {
-      return this.pop();
-    } else {
-      let pre = this.get(index - 1);
-      let elementToRemove = pre.next;
-
-      pre.next = elementToRemove.next;
-      this.length--;
-      return elementToRemove;
-    }
-  }
-
-  reverse() {
-    if (this.length === 0) return false;
-    [this.head, this.tail] = [this.tail, this.head];
-
-    let previous = null;
-    let current = this.tail;
-    let next;
-
-    while (current) {
-      next = current.next;
-      current.next = previous;
-      previous = current;
-      current = next;
-    }
-
-    return this;
-  }
-
-  // // can also write it like this
-
-  // reverse() {
-  //   if (this.length === 0) return false;
-  //   [this.head, this.tail] = [this.tail, this.head];
-
-  //   let previous = this.tail;
-  //   let current = this.tail.next;
-
-  //   while (current) {
-  //     let next = current.next;
-  //     current.next = previous;
-  //     previous = current;
-  //     current = next;
-  //   }
-  //   this.tail.next = null;
-  //   return this;
-  // }
 }
 
-let list = new SinglyLinkedList();
+let list = new DoublyLinkedList();
 list.push(0);
 list.push(1);
 list.push(2);
-console.log(list);
+list.push(3);
+list.push(4);
