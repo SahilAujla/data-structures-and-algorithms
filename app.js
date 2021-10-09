@@ -3,7 +3,7 @@
 
 // Class for each node
 
-// Singly Linked List all methods
+// Doubly Linked List all methods
 
 class Node {
   constructor(val) {
