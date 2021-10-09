@@ -133,6 +133,26 @@ class DoublyLinkedList {
       return true;
     }
   }
+
+  remove(index) {
+    if (index < 0 || index >= this.length) return undefined;
+    if (index === 0) {
+      return this.shift();
+    } else if (index === this.length - 1) {
+      return this.pop();
+    } else {
+      let pre = this.get(index - 1);
+      let elementToRemove = pre.next;
+      let post = elementToRemove.next;
+
+      pre.next = post;
+      post.prev = pre;
+      elementToRemove.next = null;
+      elementToRemove.prev = null;
+      this.length--;
+      return elementToRemove;
+    }
+  }
 }
 
 let list = new DoublyLinkedList();
