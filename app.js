@@ -124,6 +124,43 @@ class SinglyLinkedList {
       return elementToRemove;
     }
   }
+
+  reverse() {
+    if (this.length === 0) return false;
+    [this.head, this.tail] = [this.tail, this.head];
+
+    let previous = null;
+    let current = this.tail;
+    let next;
+
+    while (current) {
+      next = current.next;
+      current.next = previous;
+      previous = current;
+      current = next;
+    }
+
+    return this;
+  }
+
+  // // can also write it like this
+
+  // reverse() {
+  //   if (this.length === 0) return false;
+  //   [this.head, this.tail] = [this.tail, this.head];
+
+  //   let previous = this.tail;
+  //   let current = this.tail.next;
+
+  //   while (current) {
+  //     let next = current.next;
+  //     current.next = previous;
+  //     previous = current;
+  //     current = next;
+  //   }
+  //   this.tail.next = null;
+  //   return this;
+  // }
 }
 
 let list = new SinglyLinkedList();
