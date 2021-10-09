@@ -33,6 +33,23 @@ class DoublyLinkedList {
     this.length++;
     return this;
   }
+
+  pop() {
+    if (this.length === 0) {
+      return undefined;
+    }
+    let returnElement = this.tail;
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      this.tail = this.tail.prev;
+      this.tail.next = null;
+      returnElement.prev = null;
+    }
+    this.length--;
+    return returnElement;
+  }
 }
 
 let list = new DoublyLinkedList();
