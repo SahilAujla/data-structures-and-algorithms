@@ -2,6 +2,9 @@
 // Each node contains a value and address to the next node
 
 // Class for each node
+
+// Singly Linked List all methods
+
 class Node {
   constructor(val) {
     this.val = val;
