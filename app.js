@@ -1,16 +1,7 @@
-// Stacks using arrays
+// Queues using Arrays.
 
-let stack = [];
-stack.push("google");
-stack.push("instagram");
-stack.push("twitter");
-stack.pop();
-
-function peek(stack) {
-  return stack[stack.length - 1];
-}
-
-function isEmptyStack(stack) {
-  return !stack.length;
-  // converting length to boolean true or false --> if length > 0 then flase else true
-}
+let q = [];
+q.push(0);
+q.push(1);
+q.push(2);
+q.shift();
