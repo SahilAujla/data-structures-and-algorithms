@@ -1,4 +1,4 @@
-// Queues using Arrays.
+// Queue using Arrays.
 
 let q = [];
 q.push(0);
