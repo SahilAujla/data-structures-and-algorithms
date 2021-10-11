@@ -28,14 +28,34 @@ class BinarySearchTree {
             current = current.left;
           }
         } else {
-          if (val > current.value) {
-            if (!current.right) {
-              current.right = newNode;
-              return this;
-            } else {
-              current = current.right;
-            }
+          // that means val > current.value
+          if (!current.right) {
+            current.right = newNode;
+            return this;
+          } else {
+            current = current.right;
           }
+        }
+      }
+    }
+  }
+
+  contains(val) {
+    if (!this.root) return false;
+    let current = this.root;
+    while (true) {
+      if (val === current.value) return true;
+      if (val > current.value) {
+        if (!current.right) {
+          return false;
+        } else {
+          current = current.right;
+        }
+      } else {
+        if (!current.left) {
+          return false;
+        } else {
+          current = current.left;
         }
       }
     }
