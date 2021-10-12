@@ -96,3 +96,4 @@ class BinarySearchTree {
 }
 
 let tree = new BinarySearchTree();
+// Binary search tree
