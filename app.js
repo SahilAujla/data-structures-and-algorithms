@@ -157,6 +157,23 @@ class BinarySearchTree {
     }
     return visited;
   }
+
+  DFSPreOrder() {
+    let visited = [];
+
+    function traverse(node) {
+      visited.push(node);
+      if (node.left) {
+        traverse(node.left);
+      }
+      if (node.right) {
+        traverse(node.right);
+      }
+    }
+
+    traverse(this.root);
+    return visited;
+  }
 }
 
 let tree = new BinarySearchTree();
