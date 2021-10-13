@@ -1,3 +1,50 @@
+class NodeQ {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class Queue {
+  constructor() {
+    this.first = null;
+    this.last = null;
+    this.size = 0;
+  }
+
+  enqueue(val) {
+    let newNodeQ = new NodeQ(val);
+    if (this.size === 0) {
+      this.first = newNodeQ;
+      this.last = newNodeQ;
+    } else {
+      this.last.next = newNodeQ;
+      this.last = newNodeQ;
+    }
+    this.size++;
+    return this.size;
+  }
+
+  dequeue() {
+    if (this.size === 0) return null;
+    let temp = this.first;
+    if (this.size === 1) {
+      this.last = null;
+    }
+    this.first = this.first.next;
+    this.size--;
+    return temp.value;
+  }
+
+  peek() {
+    return this.first;
+  }
+
+  isEmpty() {
+    return !this.size;
+  }
+}
+
 class Node {
   constructor(value) {
     this.value = value;
@@ -92,6 +139,23 @@ class BinarySearchTree {
         }
       }
     }
+  }
+
+  BFS() {
+    let q = new Queue();
+    let visited = [];
+    q.enqueue(this.root);
+    while (q.size > 0) {
+      let temp = q.dequeue();
+      if (temp.left) {
+        q.enqueue(temp.left);
+      }
+      if (temp.right) {
+        q.enqueue(temp.right);
+      }
+      visited.push(temp);
+    }
+    return visited;
   }
 }
 
