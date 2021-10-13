@@ -208,6 +208,22 @@ class BinarySearchTree {
     traverse(this.root);
     return visited;
   }
+
+  heightOfTree() {
+    function height(node) {
+      if (!node) {
+        return 0;
+      }
+      if (node.left === null && node.right === null) {
+        return 0;
+      }
+      return 1 + Math.max(height(node.left), height(node.right));
+    }
+    return height(this.root);
+  }
 }
 
 let tree = new BinarySearchTree();
+
+// Both DFS and BFS have the same time complexities because we are visiting every node once (o(1))
+// If a tree is branched then BFS can take a lot more space than DFS because it stores all the nodes in queue
