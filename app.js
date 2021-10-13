@@ -174,7 +174,23 @@ class BinarySearchTree {
     traverse(this.root);
     return visited;
   }
+
+  DFSPostOrder() {
+    let visited = [];
+
+    function traverse(node) {
+      if (node.left) {
+        traverse(node.left);
+      }
+      if (node.right) {
+        traverse(node.right);
+      }
+      visited.push(node);
+    }
+
+    traverse(this.root);
+    return visited;
+  }
 }
 
 let tree = new BinarySearchTree();
-// Binary search tree
