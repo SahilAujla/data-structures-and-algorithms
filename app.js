@@ -1,11 +1,21 @@
-class MaxBinaryHeap {
+class Node {
+  constructor(val, priority) {
+    this.val = val;
+    this.priority = priority;
+  }
+}
+
+// we are using a min binary heap to implement Priority Queue
+
+class PriorityQueue {
   constructor() {
     this.values = [];
   }
 
   bubbleUp(index) {
     let parentIndex = Math.floor((index - 1) / 2);
-    while (this.values[parentIndex] < this.values[index]) {
+    if (parentIndex === -1) return true;
+    while (this.values[parentIndex].priority > this.values[index].priority) {
       [this.values[parentIndex], this.values[index]] = [
         this.values[index],
         this.values[parentIndex],
@@ -24,8 +34,10 @@ class MaxBinaryHeap {
 
       if (this.values[indexOfLeftChild] && this.values[indexOfRightChild]) {
         if (
-          this.values[indexOfLeftChild] > this.values[indexOfRightChild] &&
-          this.values[indexOfLeftChild] > this.values[parentIndex]
+          this.values[indexOfLeftChild].priority <
+            this.values[indexOfRightChild].priority &&
+          this.values[indexOfLeftChild].priority <
+            this.values[parentIndex].priority
         ) {
           let childIndex = indexOfLeftChild;
           let temp = this.values[parentIndex];
@@ -33,8 +45,10 @@ class MaxBinaryHeap {
           this.values[indexOfLeftChild] = temp;
           parentIndex = childIndex;
         } else if (
-          this.values[indexOfRightChild] > this.values[indexOfLeftChild] &&
-          this.values[indexOfRightChild] > this.values[parentIndex]
+          this.values[indexOfRightChild].priority <
+            this.values[indexOfLeftChild].priority &&
+          this.values[indexOfRightChild].priority <
+            this.values[parentIndex].priority
         ) {
           let childIndex = indexOfRightChild;
           let temp = this.values[parentIndex];
@@ -48,7 +62,10 @@ class MaxBinaryHeap {
         this.values[indexOfLeftChild] &&
         !this.values[indexOfRightChild]
       ) {
-        if (this.values[indexOfLeftChild] > this.values[parentIndex]) {
+        if (
+          this.values[indexOfLeftChild].priority <
+          this.values[parentIndex].priority
+        ) {
           let childIndex = indexOfLeftChild;
           let temp = this.values[parentIndex];
           this.values[parentIndex] = this.values[indexOfLeftChild];
@@ -63,13 +80,14 @@ class MaxBinaryHeap {
     }
   }
 
-  insert(val) {
-    this.values.push(val);
+  enqueue(val, priority) {
+    let newNode = new Node(val, priority);
+    this.values.push(newNode);
     let index = this.values.length - 1;
     return this.bubbleUp(index);
   }
 
-  extractMax() {
+  dequeue() {
     [this.values[0], this.values[this.values.length - 1]] = [
       this.values[this.values.length - 1],
       this.values[0],
@@ -80,13 +98,11 @@ class MaxBinaryHeap {
   }
 }
 
-let heap = new MaxBinaryHeap();
-heap.insert(55);
-heap.insert(39);
-heap.insert(41);
-heap.insert(18);
-heap.insert(27);
-heap.insert(12);
-heap.insert(33);
+let priorityQueue = new PriorityQueue();
 
-// MaxBinaryHeap Complete
+priorityQueue.enqueue("Head Shot", 1);
+priorityQueue.enqueue("Gunshot Wound", 2);
+priorityQueue.enqueue("High Fever", 3);
+priorityQueue.enqueue("About to die", 0);
+
+// Priority Queue
