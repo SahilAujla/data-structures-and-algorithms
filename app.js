@@ -105,4 +105,4 @@ priorityQueue.enqueue("Gunshot Wound", 2);
 priorityQueue.enqueue("High Fever", 3);
 priorityQueue.enqueue("About to die", 0);
 
-// Priority Queue
+// Priority Queu
