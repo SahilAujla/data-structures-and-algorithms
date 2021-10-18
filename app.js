@@ -1,88 +1,53 @@
-class HashTable {
-  constructor(size = 53) {
-    this.keyMap = new Array(size);
+class Graph {
+  constructor() {
+    this.adjacencyList = {};
   }
 
-  _hash(string) {
-    // here _hash is a private function that's why we put an underscore before its name, although its just for identification and not truly a private function, for making it truly private we can use symbol or weakmaps so it is not accessible on the instances of this class.
-    let total = 0;
-    let primeNumber = 31;
-    for (let i = 0; i < Math.min(string.length, 100); i++) {
-      let char = string[i];
-      let value = char.charCodeAt(0) - 96;
-      total = (total * primeNumber + value) % this.keyMap.length;
-    }
-    return total;
-  }
-
-  set(key, value) {
-    let index = this._hash(key);
-    if (!this.keyMap[index]) {
-      this.keyMap[index] = [];
-    }
-    this.keyMap[index].push([key, value]);
-  }
-
-  get(key) {
-    let index = this._hash(key);
-    if (!this.keyMap[index]) {
-      return undefined;
-    } else {
-      for (let i = 0; i < this.keyMap[index].length; i++) {
-        if (this.keyMap[index][i][0] === key) {
-          return this.keyMap[index][i][1];
-        }
-      }
+  addVertex(vertex) {
+    if (!this.adjacencyList[vertex]) {
+      this.adjacencyList[vertex] = [];
     }
   }
 
-  keys() {
-    let keysArr = [];
-    for (let i = 0; i < this.keyMap.length; i++) {
-      if (this.keyMap[i]) {
-        for (let j = 0; j < this.keyMap[i].length; j++) {
-          if (!keysArr.includes(this.keyMap[i][j][0])) {
-            keysArr.push(this.keyMap[i][j][0]);
-          }
-        }
-      }
+  addEdge(v1, v2) {
+    if (this.adjacencyList[v1]) {
+      this.adjacencyList[v1].push(v2);
     }
-    return keysArr;
+    if (this.adjacencyList[v2]) {
+      this.adjacencyList[v2].push(v1);
+    }
   }
 
-  values() {
-    let valuesArr = [];
-    for (let i = 0; i < this.keyMap.length; i++) {
-      if (this.keyMap[i]) {
-        for (let j = 0; j < this.keyMap[i].length; j++) {
-          if (!valuesArr.includes(this.keyMap[i][j][1])) {
-            valuesArr.push(this.keyMap[i][j][1]);
-          }
-        }
-      }
-    }
-    return valuesArr;
+  removeEdge(vertex1, vertex2) {
+    this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(
+      (v) => v !== vertex2
+    );
+    this.adjacencyList[vertex2] = this.adjacencyList[vertex2].filter(
+      (v) => v !== vertex1
+    );
   }
 
-  remove(key) {
-    const index = this._hash(key);
-
-    if (this.keyMap[index] && this.keyMap[index].length) {
-      this.keyMap[index] = [];
-      return true;
-    } else {
-      return false;
+  removeVertex(vertex) {
+    while (this.adjacencyList[vertex].length) {
+      const adjacentVertex = this.adjacencyList[vertex].pop();
+      this.removeEdge(vertex, adjacentVertex);
     }
+    delete this.adjacencyList[vertex];
   }
 }
 
-let ht = new HashTable();
-ht.set("hello", "one");
-ht.set("hi", "two");
-ht.set("hey", "three");
-ht.set("hllo", "four");
-ht.set("hllos", "four");
+let g = new Graph();
 
-// if we want to use something like this then we might want to use built in objects and their values in javascript -- this is just for understanding purposes
-// best case time complexity --> O(1)
-// worst case time complexity --> O(n)
+g.addVertex("Tokyo");
+g.addVertex("USA");
+g.addVertex("Paris");
+g.addVertex("Toronto");
+
+g.addEdge("Tokyo", "USA");
+g.addEdge("Paris", "Toronto");
+g.addEdge("Paris", "USA");
+g.addEdge("Toronto", "USA");
+
+g.removeEdge("Tokyo", "USA");
+
+g.removeVertex("USA");
