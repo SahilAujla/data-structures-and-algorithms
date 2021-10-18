@@ -54,6 +54,25 @@ class Graph {
     helper(vertex);
     return results;
   }
+
+  DFS_iterative(vertex) {
+    let stack = [];
+    let results = [];
+    let visited = {};
+    stack.push(vertex);
+    stack[vertex] = true;
+    while (stack.length) {
+      let newVertex = stack.pop();
+      if (!visited[newVertex]) {
+        visited[newVertex] = true;
+        results.push(newVertex);
+        for (let i = 0; i < this.adjacencyList[newVertex].length; i++) {
+          stack.push(this.adjacencyList[newVertex][i]);
+        }
+      }
+    }
+    return results;
+  }
 }
 
 let g = new Graph();
