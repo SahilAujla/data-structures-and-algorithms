@@ -1,4 +1,4 @@
-class Graph {
+class WeightedGraph {
   constructor() {
     this.adjacencyList = {};
   }
@@ -9,108 +9,22 @@ class Graph {
     }
   }
 
-  addEdge(v1, v2) {
+  addEdge(v1, v2, weight) {
     if (this.adjacencyList[v1]) {
-      this.adjacencyList[v1].push(v2);
+      this.adjacencyList[v1].push({ node: v2, weight });
     }
     if (this.adjacencyList[v2]) {
-      this.adjacencyList[v2].push(v1);
+      this.adjacencyList[v2].push({ node: v1, weight });
     }
-  }
-
-  removeEdge(vertex1, vertex2) {
-    this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(
-      (v) => v !== vertex2
-    );
-    this.adjacencyList[vertex2] = this.adjacencyList[vertex2].filter(
-      (v) => v !== vertex1
-    );
-  }
-
-  removeVertex(vertex) {
-    while (this.adjacencyList[vertex].length) {
-      const adjacentVertex = this.adjacencyList[vertex].pop();
-      this.removeEdge(vertex, adjacentVertex);
-    }
-    delete this.adjacencyList[vertex];
-  }
-
-  DFS_recursive(vertex) {
-    let results = [];
-    let visited = {};
-    let lst = this.adjacencyList;
-    function helper(vertex) {
-      if (!vertex) {
-        return true;
-      }
-      results.push(vertex);
-      visited[vertex] = true;
-      for (let i = 0; i < lst[vertex].length; i++) {
-        if (!visited[lst[vertex][i]]) {
-          helper(lst[vertex][i]);
-        }
-      }
-    }
-    helper(vertex);
-    return results;
-  }
-
-  DFS_iterative(vertex) {
-    let stack = [vertex]; // can use real stack structure here but I am just using array
-    let results = [];
-    let visited = {};
-    let newVertex;
-    visited[vertex] = true;
-    let lst = this.adjacencyList;
-    while (stack.length) {
-      newVertex = stack.pop();
-      results.push(newVertex);
-      for (let i = 0; i < lst[newVertex].length; i++) {
-        if (!visited[lst[newVertex][i]]) {
-          visited[lst[newVertex][i]] = true;
-          stack.push(lst[newVertex][i]);
-        }
-      }
-    }
-    return results;
-  }
-
-  BFS(vertex) {
-    let q = [vertex]; // can use real queue structure here but I am just using array
-    let results = [];
-    let visited = {};
-    visited[vertex] = true;
-    let newVertex;
-    let lst = this.adjacencyList;
-
-    while (q.length) {
-      newVertex = q.shift();
-      results.push(newVertex);
-
-      for (let i = 0; i < lst[newVertex].length; i++) {
-        if (!visited[lst[newVertex][i]]) {
-          visited[lst[newVertex][i]] = true;
-          q.push(lst[newVertex][i]);
-        }
-      }
-    }
-    return results;
   }
 }
 
-let g = new Graph();
+let g = new WeightedGraph();
 
 g.addVertex("A");
 g.addVertex("B");
 g.addVertex("C");
-g.addVertex("D");
-g.addVertex("E");
-g.addVertex("F");
 
-g.addEdge("A", "B");
-g.addEdge("A", "C");
-g.addEdge("B", "D");
-g.addEdge("C", "E");
-g.addEdge("D", "E");
-g.addEdge("D", "F");
-g.addEdge("E", "F");
+g.addEdge("A", "B", 9);
+g.addEdge("A", "C", 5);
+g.addEdge("B", "D", 7);
