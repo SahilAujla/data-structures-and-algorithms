@@ -56,18 +56,41 @@ class Graph {
   }
 
   DFS_iterative(vertex) {
-    let stack = [];
+    let stack = [vertex]; // can use real stack structure here but I am just using array
     let results = [];
     let visited = {};
-    stack.push(vertex);
-    stack[vertex] = true;
+    let newVertex;
+    visited[vertex] = true;
+    let lst = this.adjacencyList;
     while (stack.length) {
-      let newVertex = stack.pop();
-      if (!visited[newVertex]) {
-        visited[newVertex] = true;
-        results.push(newVertex);
-        for (let i = 0; i < this.adjacencyList[newVertex].length; i++) {
-          stack.push(this.adjacencyList[newVertex][i]);
+      newVertex = stack.pop();
+      results.push(newVertex);
+      for (let i = 0; i < lst[newVertex].length; i++) {
+        if (!visited[lst[newVertex][i]]) {
+          visited[lst[newVertex][i]] = true;
+          stack.push(lst[newVertex][i]);
+        }
+      }
+    }
+    return results;
+  }
+
+  BFS(vertex) {
+    let q = [vertex]; // can use real queue structure here but I am just using array
+    let results = [];
+    let visited = {};
+    visited[vertex] = true;
+    let newVertex;
+    let lst = this.adjacencyList;
+
+    while (q.length) {
+      newVertex = q.shift();
+      results.push(newVertex);
+
+      for (let i = 0; i < lst[newVertex].length; i++) {
+        if (!visited[lst[newVertex][i]]) {
+          visited[lst[newVertex][i]] = true;
+          q.push(lst[newVertex][i]);
         }
       }
     }
