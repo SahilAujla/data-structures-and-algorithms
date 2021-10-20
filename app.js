@@ -172,8 +172,20 @@ class WeightedGraph {
         }
       }
     }
-    console.log(path.concat(smallest).reverse());
-    console.log(distances[end]);
+    let outputlst = path.concat(smallest).reverse();
+    let outputstring = "";
+    for (let i = 0; i < outputlst.length; i++) {
+      if (i === outputlst.length - 1) {
+        outputstring += outputlst[i];
+      } else {
+        outputstring += outputlst[i] + " --> ";
+      }
+    }
+    console.log(
+      `The shortest path from ${start} to ${end} is: 
+      ${outputstring}`
+    );
+    console.log(`The length of this path is ${distances[end]} units.`);
   }
 }
 
