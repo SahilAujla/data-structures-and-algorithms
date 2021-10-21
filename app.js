@@ -1,15 +1,17 @@
-// Fibonacci using recursion
+// Fibonacci using Memoization
 
-function fib(n) {
+function fib(n, memo = []) {
+  if (memo[n] !== undefined) return memo[n];
   if (n === 1 || n === 2) return 1;
-  return fib(n - 1) + fib(n - 2);
+  let res = fib(n - 1, memo) + fib(n - 2, memo);
+  memo[n] = res;
+  return res;
 }
 
-let fibOf5 = fib(15);
-console.log(fibOf5);
+let fibs = fib(15);
+console.log(fibs);
 
-// The big-O of this is 2^n (to be exat 1.6^n)
-// because fibonacci series has both --> overlapping subproblems and optimal substructure
-// so this can be solved in a much better way using dynamic programming instead of plain old recursion.
-// we can use memoization for solving this so we don't have to calculate fib(4) or fib(5) or fib(3) each time.
-// we can just solve them once and use their solution values next time.
+// we could have used an object also, instead of an array.
+// The time complexity of this solution is O(n) which is way way better than o(2^n).
+// Memoization is one of the flavours of dynamic programming another flavour is tablulation
+// In memoization we are working top-down but in tabulation we work bottom-up
